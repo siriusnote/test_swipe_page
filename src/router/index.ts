@@ -1,8 +1,9 @@
+import type { RouteRecordRaw } from "vue-router";
 import { createWebHistory, createRouter } from "vue-router";
-import Operation from "@/views/Operation.vue"
+import Operation from '@/views/Operation.vue'
 import Setting from "@/views/Setting.vue"
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
         name: "Operation",

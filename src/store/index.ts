@@ -1,14 +1,15 @@
+
+// @ts-ignore
 import { createStore } from "vuex"
 
-const store = createStore({
+
+export const store = createStore({
     state: {
         mode: 1
     },
     mutations: {
-        updateMode (state, mode) {
+        updateMode (state: any, mode: number) {
             state.mode = mode
         }
     }
 })
-
-export default store

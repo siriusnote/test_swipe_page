@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
-
+// @ts-ignore
 import WaveUI from 'wave-ui'
 import 'wave-ui/dist/wave-ui.css'
 
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import {store} from './store'
 
 
 const app = createApp(App)

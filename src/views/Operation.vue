@@ -20,9 +20,12 @@
 
 </template>
 
-<script>
+<script lang="ts">
+    import { defineComponent } from 'vue';
+    // @ts-ignore
     import { mapMutations } from 'vuex'
 
+    // @ts-ignore
     import { VueperSlides, VueperSlide } from 'vueperslides'
     import 'vueperslides/dist/vueperslides.css'
 
@@ -30,7 +33,8 @@
     import ModeTwo from '@/views/modes/ModeTwo.vue'
     import ModeThree from '@/views/modes/ModeThree.vue'
     
-    export default {
+    export default defineComponent({
+        name: 'operation',
         components: { VueperSlides, VueperSlide, ModeOne, ModeTwo, ModeThree },
         data: () => ({
             modes: [
@@ -52,12 +56,12 @@
             ...mapMutations([
                 'updateMode'
             ]),
-            onSlideUpdate (eventName, params) {
+            onSlideUpdate (eventName: string, params: any) {
                 let currentMode = params.currentSlide.index + 1
                 this.updateMode(currentMode)
             }
         }
-    };
+    })
 </script>
 
 <style scoped>
