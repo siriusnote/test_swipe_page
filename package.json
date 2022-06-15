@@ -10,9 +10,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "swiper": "^8.2.4",
     "vue": "^3.2.36",
+    "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.0.16",
-    "vueperslides": "^3.4.0",
     "vuex": "^4.0.2",
     "wave-ui": "^2.39.1"
   },

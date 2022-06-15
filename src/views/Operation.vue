@@ -1,22 +1,19 @@
 <template>
-    <vueper-slides 
-        :arrows="false"
-        :bullets="false"
-        :dragging-distance="70"
-        :initSlide="$store.state.mode"
-        fixed-height="100vh"
-        @slide="onSlideUpdate('slide', $event)"
+    <swiper
+        ref='mySwiper'
+        class="swiper"
+        :initialSlide="$store.state.mode"
+        :slides-per-view="1"
+        :loop="true"
+        @slideChange="onSlideChange"
     >
-        <vueper-slide 
+        <swiper-slide
             v-for="(mode, i) in modes"
             :key="i" 
-            :content="mode.content"
         >
-            <template #content>
-                <component v-bind:is="mode.content"/>
-            </template>
-        </vueper-slide>
-    </vueper-slides>
+            <component v-bind:is="mode.content"/>
+        </swiper-slide>
+    </swiper>
 
 </template>
 
@@ -25,9 +22,11 @@
     // @ts-ignore
     import { mapMutations } from 'vuex'
 
-    // @ts-ignore
-    import { VueperSlides, VueperSlide } from 'vueperslides'
-    import 'vueperslides/dist/vueperslides.css'
+    import type SwiperClass from 'swiper'
+    import { Swiper, SwiperSlide } from 'swiper/vue'
+    import 'swiper/css'
+    import 'swiper/css/pagination'
+    import 'swiper/css/navigation'
 
     import ModeOne from '@/views/modes/ModeOne.vue'
     import ModeTwo from '@/views/modes/ModeTwo.vue'
@@ -35,8 +34,10 @@
     
     export default defineComponent({
         name: 'operation',
-        components: { VueperSlides, VueperSlide, ModeOne, ModeTwo, ModeThree },
+        components: {  Swiper, SwiperSlide, ModeOne, ModeTwo, ModeThree },
         data: () => ({
+            swiperRef: null,
+            lock: false,
             modes: [
                 {
                     title: 'Daily Mode',
@@ -52,13 +53,24 @@
                 }
             ]
         }),
+        computed: {
+            allowTouchMove() {
+                console.log({lock: this.lock})
+                return !this.lock
+            }
+        },
         methods: {
             ...mapMutations([
                 'updateMode'
             ]),
-            onSlideUpdate (eventName: string, params: any) {
-                let currentMode = params.currentSlide.index + 1
+            onSlideChange (swiper:SwiperClass) {
+                swiper.disable()
+                let currentMode = swiper.realIndex
                 this.updateMode(currentMode)
+                setTimeout(() => {
+                    swiper.enable()
+                },2000)
+
             }
         }
     })
@@ -67,4 +79,5 @@
 <style scoped>
     html {font: 12px Tahoma, Geneva, sans-serif;}
     * {margin: 0;padding: 0;color: #fff;}
+    .swiper {height:calc(100vh - 59px)}
 </style>
